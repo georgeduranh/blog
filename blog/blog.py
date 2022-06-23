@@ -99,3 +99,11 @@ def delete(id):
     db.execute('DELETE FROM post WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('blog.index'))
+
+
+
+@bp.route('/show/<int:id>')
+@login_required
+def show(id):
+    post = get_post(id)
+    return render_template('blog/show.html', post=post)
