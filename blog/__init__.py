@@ -30,16 +30,20 @@ def create_app(test_config=None):
         return 'Hello, World!'
 
     ##Database 
-    from . import db
+    from blog import db, auth
     db.init_app(app)
 
     ##Login and registration view
-    from . import auth
     app.register_blueprint(auth.bp)
 
     ## Blog
     from . import blog
     app.register_blueprint(blog.bp)
+
+    # make url_for('index') == url_for('blog.index')
+    # in another app, you might define a separate main index here with
+    # app.route, while giving the blog blueprint a url_prefix, but for
+    # the tutorial the blog will be the main index
     app.add_url_rule('/', endpoint='index')
 
 
