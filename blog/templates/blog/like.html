@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %} Like! "{{ post['title'] }}"{% endblock %}</h1>
+{% endblock %} {% block content %}
+
+<form action="{{ url_for('blog.like', id=post['id']) }}" method="post">
+  <label for="title">{{ request.form['title'] or post['title'] }}</label>
+  <label><input type="checkbox" id="like" value="like" />Like</label><br />
+  <input type="submit" value="Like" />
+</form>
+<hr />
+
+{% endblock %}
