@@ -116,7 +116,7 @@ def like(id):
     like = post['likes']
     
     if request.method == 'POST':
-                
+              
         db = get_db()
         like = like + 1
         
@@ -129,3 +129,24 @@ def like(id):
         return redirect(url_for('blog.index'))
 
     return render_template('blog/like.html', post=post)
+
+@bp.route('/<int:id>/unlike', methods=('GET', 'POST'))
+@login_required
+def unlike(id):
+    post = get_post(id)
+    like = post['likes']
+    
+    if request.method == 'POST':
+        if like >0:
+            db = get_db()
+            like = like - 1
+            
+            db.execute(
+                    'UPDATE post SET likes = ?'
+                    ' WHERE id = ?',
+                    (like, id)
+                )
+            db.commit()
+    
+    return redirect(url_for('blog.index'))
+

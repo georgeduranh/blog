@@ -18,6 +18,9 @@
         <form action="{{ url_for('blog.like', id=post['id']) }}" method="post">
           <input type="submit" value="Like" />
         </form>
+        <form action="{{ url_for('blog.unlike', id=post['id']) }}" method="post">
+          <input type="submit" value="Unlike" />
+        </form>
       </div>
     </div>
     {% if g.user['id'] == post['author_id'] %}
